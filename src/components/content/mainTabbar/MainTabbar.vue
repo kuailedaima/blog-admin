@@ -35,19 +35,19 @@ export default {
         let index = Number(key);
         switch(index){
           case 1:
-            console.log("主页");
+            console.log("首页");
             this.$router.push('/homepage').catch(()=>{})
             break;
           case 2:
-            console.log("技术");
+            console.log("文章管理");
             this.$router.push('/technology').catch(()=>{})
             break;
           case 3:
-            console.log("心情随笔");
+            console.log("随笔管理");
             this.$router.push('/essay').catch(()=>{})
             break;
           case 4:
-            console.log("留言板");
+            console.log("留言管理");
             this.$router.push('/message').catch(()=>{})
             break;
         }
