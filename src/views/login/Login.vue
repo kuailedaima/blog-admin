@@ -1,9 +1,30 @@
 <template>
   <div id="login">
-      <div>账号：<input type="text" placeholder="邮箱" v-model="useraccount"/></div>
+      <div class="login_box">
+          <!-- 头像 -->
+          <div class="avatar_box">
+              <img src="../../assets/logo.png" alt="">
+          </div>
+          <!-- 表单 -->
+          <el-form label-width="0px" class="login_form">
+              <!-- 输入框 -->
+            <el-form-item>
+                <el-input prefix-icon="el-icon-user-solid"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-input prefix-icon="iconfont icon-3702mima"></el-input>
+            </el-form-item>
+            <!-- 按钮 -->
+            <el-form-item class="btns">
+                <el-button type="primary">登陆</el-button>
+                <el-button type="info">注册</el-button>
+            </el-form-item>
+          </el-form>
+      </div>
+      <!-- <div>账号：<input type="text" placeholder="邮箱" v-model="useraccount"/></div>
       <div>密码：<input type="password" v-model="userpassword"/></div>
       <button @click="login">登陆</button>
-      <div>第一次使用？<a href="" @click="register">创建一个账户</a></div>
+      <div>第一次使用？<a href="" @click="register">创建一个账户</a></div> -->
   </div>
 </template>
 
@@ -18,17 +39,11 @@ export default {
     },
     methods: {
         login(){
-            // console.log(this.useraccount);
-            // console.log(this.userpassword);
             let data = {
                 useraccount:this.useraccount,
                 userpassword:this.userpassword
             }
-            console.log(qs.stringify(data));
 
-            // postHomeAPI(qs.stringify(data)).then(res =>{
-            //     console.log(res);
-            // })
             if(this.useraccount === null || this.useraccount.length ==0) {
                 alert("账号不能为空");
             } else {
@@ -63,12 +78,60 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     #login {
+        background: #2b4b6b;
+        height: 100%;
+    }
+
+    .login_box {
+        width: 450px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 3px;
+        position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%,-50%);
     }
+
+    .avatar_box {
+        height: 130px;
+        width: 130px;
+        border: 1px solid #eee;
+        border-radius: 50%;
+        padding: 10px;
+        box-shadow: 0 0 10px #ddd;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: #fff;
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+    }
+
+    .login_form {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    .btns {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+
+
+
+
+
     #login > div {
         margin: 4px;
     }
