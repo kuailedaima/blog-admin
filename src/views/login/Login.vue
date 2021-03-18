@@ -6,17 +6,17 @@
               <img src="../../assets/logo.png" alt="">
           </div>
           <!-- 表单 -->
-          <el-form label-width="0px" class="login_form">
-              <!-- 输入框 -->
-            <el-form-item>
-                <el-input prefix-icon="el-icon-user-solid"></el-input>
+          <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" label-width="0px" class="login_form">
+              <!-- 登陆表单输入框 -->
+            <el-form-item prop="username">
+                <el-input v-model="loginForm.username" clearable prefix-icon="el-icon-user-solid" placeholder="请输入用户名"/>
             </el-form-item>
-            <el-form-item>
-                <el-input prefix-icon="iconfont icon-3702mima"></el-input>
+            <el-form-item prop="password">
+                <el-input v-model="loginForm.password" show-password prefix-icon="iconfont icon-3702mima" placeholder="请输入密码"/>
             </el-form-item>
             <!-- 按钮 -->
             <el-form-item class="btns">
-                <el-button type="primary">登陆</el-button>
+                <el-button type="primary" @click="login">登陆</el-button>
                 <el-button type="info">注册</el-button>
             </el-form-item>
           </el-form>
@@ -33,43 +33,74 @@ import qs from 'qs'
 export default {
     data(){
         return{
+            //form表单绑定对象
+            loginForm:{
+                username:'',
+                password: ''
+            },
+            //表单验证规则
+            loginFormRules:{
+                //姓名验证规则
+                username:[
+                    { required: true, message: '请输入用户名', trigger: 'blur' },
+                    { min: 3, max: 20, message: '长度在 3 到 20个字符', trigger: 'blur' }
+               ],
+               //密码验证规则
+               password:[
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 6, max: 20, message: '长度在 6 到 20个字符', trigger: 'blur' }
+               ],
+            },
             useraccount:null,
             userpassword:null
         }
     },
     methods: {
         login(){
-            let data = {
-                useraccount:this.useraccount,
-                userpassword:this.userpassword
-            }
+            this.$refs.loginFormRef.validate(valid =>{
+                console.log(valid);
+                if(!valid) return;
 
-            if(this.useraccount === null || this.useraccount.length ==0) {
-                alert("账号不能为空");
-            } else {
-                if(this.userpassword === null || this.userpassword.length ==0) {
-                    alert("密码不能为空");
-                } else{
-                    this.$axios.post("/login",qs.stringify(data)).then(res=>{
-                    //回调处理
-                    // console.log(res)
-                        switch(res){
-					    case 0: 
-						    alert("用户名或密码错误!");
-						    break;
-					    case 1:
-                            alert("登陆成功！")
-                            this.$router.push('/')
-						    break;
-					    case 2:
-                            alert("出错了请稍后！")
-						    break;
-				        }
-                    }).catch(err=>{
-                        console.log(err)
-                     })
-                }
-            }
+            })
+
+             this.$axios.post("/login",this.loginForm).then(res =>{
+                 console.log(res);
+             }).catch(err =>{
+                 console.log(err);
+             });
+
+            //************************************************************************ */
+        //     let data = {
+        //         useraccount:this.useraccount,
+        //         userpassword:this.userpassword
+        //     }
+
+        //     if(this.useraccount === null || this.useraccount.length ==0) {
+        //         alert("账号不能为空");
+        //     } else {
+        //         if(this.userpassword === null || this.userpassword.length ==0) {
+        //             alert("密码不能为空");
+        //         } else{
+        //             this.$axios.post("/login",qs.stringify(data)).then(res=>{
+        //             //回调处理
+        //             // console.log(res)
+        //                 switch(res){
+		// 			    case 0: 
+		// 				    alert("用户名或密码错误!");
+		// 				    break;
+		// 			    case 1:
+        //                     alert("登陆成功！")
+        //                     this.$router.push('/')
+		// 				    break;
+		// 			    case 2:
+        //                     alert("出错了请稍后！")
+		// 				    break;
+		// 		        }
+        //             }).catch(err=>{
+        //                 console.log(err)
+        //              })
+        //         }
+        //     }
         },
         register(){
             this.$router.push('/register')
