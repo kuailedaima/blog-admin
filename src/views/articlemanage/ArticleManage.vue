@@ -1,6 +1,6 @@
 <template>
   <div id="articlemanage">
-      
+      文章
   </div>
 </template>
 

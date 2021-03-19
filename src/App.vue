@@ -1,16 +1,9 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <header>
+    <!-- <header>
       <header-bar class="headerbar"/>
     </header>
-    <!-- <div>
-      <header-bar/>
-    </div> -->
-    <main-tabbar class="maintabbar"/>
+    <main-tabbar class="maintabbar"/> -->
     <router-view/>
   </div>
 </template>
@@ -44,7 +37,6 @@ export default {
 }
 
 .maintabbar {
-  /* height: 100vh; */
   width: 17%;
   height: 100%;
   position: fixed;
