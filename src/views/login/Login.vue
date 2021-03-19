@@ -56,7 +56,7 @@ export default {
                 }
             }
         },
-        register(){
+        register(){ 
             this.$router.push('/register')
         }
     }
